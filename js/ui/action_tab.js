@@ -3,31 +3,33 @@
 $(function() {
   var $tab = $("#action-tab");
   var t = App.locale.translate;
+  var g = App.graph;
 
-  var $errorButton = $("<button/>", {
-    "text": t("button.delete"),
-    "class": "pure-button button-warning"
-  }).on("click", function() {
-    App.graph.deleteSelected();
-  });
+  var $commonButtons = [
+    App.make.redButton(t("button.delete"), App.graph.deleteSelected)
+  ];
   
-  var buttonTemplate = (text) => `
-    <button class="pure-button pure-button-primary row-button">
-      ${text}
-    </button>
-  `;
+  var actionMapping = {
+    "addResearch": () => g.addToSelected(App.node.Research),
+    "addAuthor": () => g.addToSelected(App.node.Author),
+    "addExcavations": () => g.addToSelected(App.node.Excavations)
+  };
   
   function loadNode(node) {
-    var $parts = _.map(
-      _.map(node.actions, action => t(`button.${action}`)),
-      buttonTemplate
+    var $buttons = _.map(
+      node.actions,
+      action => App.make.blueButton(
+        t(`button.${action}`),
+        actionMapping[action]
+      )
     );
-    $tab.html($errorButton);
+    
+    $tab.html($buttons.concat($commonButtons));
   }
 
   function reset() {
-    $errorButton.detach();
-    // $tab.empty();
+    _.invoke($commonButtons, "detach");
+    $tab.empty();
   }
 
   App.actionTab = {

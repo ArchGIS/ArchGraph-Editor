@@ -6,31 +6,36 @@ $(function() {
   var Excavations = App.node.Excavations;
   var Artifact = App.node.Artifact;
   var t = App.locale.translate;
+
+  var idSequence = 0;
   
-  var author = new Author('author');
-  var research = new Research('research');
+  var $cytoscape = $("#cytoscape");
+
+  // #FIXME: стартовый набор должен задаваться извне
   var elems = {
-    "nodes": [
-      { data: author },
-      { data: research },
-      { data: new Artifact("art") },
-      { data: new Excavations("mr") }
-    ],
-    "edges": [
-      { data: { source: "author", target: "research"} },
-      { data: { source: "research", target: "mr"} },
-      { data: { source: "art", target: "mr"} }
-    ]
+    "nodes": [{"data": new Author('author')}]
+  };
+
+  var relativeCenter = {
+    "x": $cytoscape.width() / 2.0,
+    "y": $cytoscape.height() / 2.0
   };
   
   var cy = cytoscape({
     "userZoomingEnabled": false,
     "boxSelectionEnabled": false,
-    "container": $("#cytoscape")[0],
+    "container": $cytoscape[0],
     "elements": elems,
+    "layout": {
+      "name": "grid",
+      "padding": 180
+    },
     "style": [{
       "selector": "node",
-      "style": {"content": "data(label)"}
+      "style": {
+        "content": "data(label)",
+        "text-valign": "center"
+      }
     }, {
       "selector": "edge",
       "style": {
@@ -59,6 +64,30 @@ $(function() {
     cy.on(trigger, target, callback);
   }
 
+  function addToSelected(NodeCtor) {
+    var selected = cy.$(":selected");
+    var id = "" + idSequence++;
+    var pos = selected.position();
+    
+    var node = {
+      "group": "nodes",
+      "data": new NodeCtor(id),
+      "position": {
+        "x": pos.x + 75,
+        "y": pos.y
+      }
+    };
+    var edge = {
+      "group": "edges",
+      "data": {
+        "source": selected.id(),
+        "target": id
+      }
+    };
+    
+    cy.add([node, edge]);
+  }
+
   function deleteSelected() {
     var selected = cy.$(":selected");
     if (0 == selected.length) { // Не выделено ни одного узла.
@@ -78,6 +107,7 @@ $(function() {
     "on": bindEvent,
     "zoomIn": zoomIn,
     "zoomOut": zoomOut,
-    "deleteSelected": deleteSelected
+    "deleteSelected": deleteSelected,
+    "addToSelected": addToSelected
   };
 });
