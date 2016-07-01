@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <title>ArchGraph Editor</title>
+
+    <script src="./vendor/js/cytoscape.min.js"></script>
+    <script src="./vendor/js/jquery.min.js"></script>
+    <script src="./vendor/js/jquery.ui.min.js"></script>
+    <script src="./vendor/js/underscore.min.js"></script>
+
+    <script src="./js/init.js"></script>
+    <script src="./js/hotkey.js"></script>
+    <script src="./js/locale.js"></script>
+    <script src="./js/alert.js"></script>
+    <script src="./js/inputs.js"></script>
+    <script src="./js/nodes.js"></script>
+    <script src="./js/graph.js"></script>
+    <script src="./js/ui/action_tab.js"></script>
+    <script src="./js/ui/data_tab.js"></script>
+    <script src="./js/app.js"></script>
+
+    <link href="./vendor/css/pure.min.css" rel="stylesheet">
+    <link href="./vendor/css/jquery-ui.min.css" rel="stylesheet">
+
+    <link href="./css/style.css" rel="stylesheet">
+
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <div id="app-container">
+      <div id="node-action-box">
+        <ul>
+          <li><a href="#control-tab">Управление</a></li>
+          <li><a href="#action-tab">Действия над элементом</a></li>
+          <li><a href="#data-tab">Данные элемента</a></li>
+        </ul>
+
+        <div id="control-tab">
+          Масштаб:
+          <button id="zoom-in" class="pure-button small-button">+</button>
+          <button id="zoom-out" class="pure-button small-button">-</button>
+          <hr>
+          <button class="pure-button pure-button-primary">Сохранить</button>
+        </div>
+
+        <div id="action-tab"></div>
+        <div id="data-tab"></div>
+        
+      </div>
+      
+      <div id="cytoscape"></div>
+      <div id="map-box">
+        <div id="map">[[ карта ]]</div>
+      </div>
+    </div>
+
+    <script id="tmpl-default-node-info" type="text/template">
+      Элемент не выбран.
+    </script>
+
+    <script id="tmpl-text-input" type="text/template">
+      <label>
+        <%= name %>
+        <textarea><%= value %></textarea>       
+      </label>
+    </script>
+
+    <script id="tmpl-string-input" type="text/template">
+      <label>
+        <%= name %>
+        <input value="<%= value %>">       
+      </label>
+    </script>
+  </body>
+</html>

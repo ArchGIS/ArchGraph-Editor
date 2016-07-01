@@ -1,0 +1,90 @@
+* {
+    font-family: Arial !important;
+}
+
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+.button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+#node-action-box {
+    padding: 4px;
+    width: 1248px;
+    height: 252px;
+    border: 1px solid gray;
+    font-size: 12pt;
+}
+
+.row-button {
+    margin-left: 8px;
+}
+
+.small-button {
+    width: 48px;
+}
+
+#map-box {
+    float: left;
+    width: 626px;
+    height: 408px;
+    border: 1px solid gray;
+}
+
+.left-box-opened {
+    width: 352px;
+}
+.left-box-collapsed {
+    width: 12px;
+}
+
+#left-palette {
+    float: left;
+    overflow-y: auto;
+}
+
+#map-toggle {
+    float: left;
+    width: 12px;
+    height: 100%;
+    background-color: rgb(0, 120, 231);
+    /* border: 2px solid gray; */
+}
+
+#map {
+    float: left;
+}
+
+#map-toggle:hover {
+    cursor: pointer;
+    background-color: rgb(0, 100, 200);
+}
+
+#cytoscape {
+    float: left;
+    width: 628px;
+    height: 408px;
+    border: 1px solid gray;
+}
+
+#left-box {
+    float: left;
+    padding: 4px;
+    height: 400px;
+    border: 1px solid gray;
+}
