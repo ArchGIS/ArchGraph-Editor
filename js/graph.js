@@ -11,40 +11,59 @@ $(function() {
   
   var $cytoscape = $("#cytoscape");
 
-  // #FIXME: стартовый набор должен задаваться извне
-  var elems = {
-    "nodes": [{"data": new Author('author')}]
-  };
-
   var relativeCenter = {
     "x": $cytoscape.width() / 2.0,
     "y": $cytoscape.height() / 2.0
   };
-  
-  var cy = cytoscape({
-    "userZoomingEnabled": false,
-    "boxSelectionEnabled": false,
-    "container": $cytoscape[0],
-    "elements": elems,
-    "layout": {
+
+  var cy = (function() {
+    var style = cytoscape.stylesheet()
+      .selector("node").css({
+        "content": "data(label)",
+        "text-valign": "center",
+        "color": "#000"
+      })
+      .selector(".normal-node").css({
+        "background-color": "rgb(28, 184, 65)"
+      })
+      .selector(".normal-node:selected").css({
+        "font-weight": "bold",
+        "shape": "rectangle",
+        "background-color": "rgb(28, 184, 65)"
+      })
+      .selector(".binder-node").css({
+        "background-color": "#0078e7"
+      })
+      .selector(".binder-node:selected").css({
+        "font-weight": "bold",
+        "shape": "rectangle",
+        "background-color": "#0078e7"
+      })
+      .selector("edge").css({
+        "width": 2,
+        "target-arrow-shape": "triangle",
+        "curve-style": "bezier"
+      });
+
+    // #FIXME: стартовый набор должен задаваться извне
+    var elems = {
+      "nodes": [{"data": new Author("author"), "classes": "normal-node"}]
+    };
+
+    var initialLayout = {
       "name": "grid",
       "padding": 180
-    },
-    "style": [{
-      "selector": "node",
-      "style": {
-        "content": "data(label)",
-        "text-valign": "center"
-      }
-    }, {
-      "selector": "edge",
-      "style": {
-	"width": 2,
-	"target-arrow-shape": "triangle",
-	"curve-style": 'bezier'
-      }
-    }]
-  });
+    };
+
+    return cytoscape({
+      "userZoomingEnabled": false,
+      "boxSelectionEnabled": false,
+      "layout": initialLayout,
+      "elements": elems,
+      "container": $cytoscape[0],
+      "style": style
+    });
+  }());
 
   function zoomIn() {
     var zoom = cy.zoom();
@@ -68,10 +87,11 @@ $(function() {
     var selected = cy.$(":selected");
     var id = "" + idSequence++;
     var pos = selected.position();
-    
+
     var node = {
       "group": "nodes",
       "data": new NodeCtor(id),
+      "classes": NodeCtor.classes,
       "position": {
         "x": pos.x + 75,
         "y": pos.y
