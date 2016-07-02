@@ -23,22 +23,7 @@ $(function() {
         "text-valign": "center",
         "color": "#000"
       })
-      .selector(".normal-node").css({
-        "background-color": "rgb(28, 184, 65)"
-      })
-      .selector(".normal-node:selected").css({
-        "font-weight": "bold",
-        "shape": "rectangle",
-        "background-color": "rgb(28, 184, 65)"
-      })
-      .selector(".binder-node").css({
-        "background-color": "#0078e7"
-      })
-      .selector(".binder-node:selected").css({
-        "font-weight": "bold",
-        "shape": "rectangle",
-        "background-color": "#0078e7"
-      })
+      .selector(":selected").css({/* default */})
       .selector("edge").css({
         "width": 2,
         "target-arrow-shape": "triangle",
@@ -47,7 +32,7 @@ $(function() {
 
     // #FIXME: стартовый набор должен задаваться извне
     var elems = {
-      "nodes": [{"data": new Author("author"), "classes": "normal-node"}]
+      "nodes": [{"data": new Research("research")}]
     };
 
     var initialLayout = {
@@ -91,7 +76,6 @@ $(function() {
     var node = {
       "group": "nodes",
       "data": new NodeCtor(id),
-      "classes": NodeCtor.classes,
       "position": {
         "x": pos.x + 75,
         "y": pos.y
