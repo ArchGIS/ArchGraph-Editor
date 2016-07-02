@@ -5,22 +5,40 @@
     "Author": {
       "short": "Автор"
     },
+    "CoAuthor": {
+      "short": "Соавтор"
+    },
+    "ArchMap": {
+      "short": "Арх. карта"
+    },
     "Research": {
       "short": "Иссл."
     },
     "Excavations": {
       "short": "Раскопки"
     },
+    "Monument": {
+      "short": "Памятник"
+    },
     "Artifact": {
       "short": "Артефакт"
+    },
+    "MonumentPhoto": {
+      "short": "Фото пам."
+    },
+    "ExcavationsPhoto": {
+      "short": "Фото раск."
     },
     "button": {
       "delete": "Удалить элемент",
       "addResearch": "Добавить исследование",
       "addExcavations": "Добавить раскопки",
-      "addPublication": "Добавить публикацию",
+      "addArchMap": "Добавить археологическую карту",
+      "addMonument": "Добавить памятник",
       "addArtifact": "Добавить артефакт",
-      "addCoAuthor": "Добавить соавтора"
+      "addCoAuthor": "Добавить соавтора",
+      "addMonumentPhoto": "Добавить фотографию памятника",
+      "addExcavationsPhoto": "Добавить фотографию раскопок"
     },
     "error": {
       "nonLeafRemove": "удалять можно только висячие вершины (листья графа)"

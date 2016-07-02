@@ -88,3 +88,10 @@
     height: 400px;
     border: 1px solid gray;
 }
+
+#action-tab :nth-child(n) {
+  margin-right: 8px;
+}
+#action-tab :last-child {
+  margin-right: 0;
+}

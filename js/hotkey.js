@@ -8,7 +8,6 @@
   }
 
   $(window).keyup(function(event) {
-    console.log(bindings);
     var callback = bindings[event.which];
     if (callback) {
       callback();
