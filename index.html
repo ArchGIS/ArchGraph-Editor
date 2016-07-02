@@ -30,6 +30,7 @@
   </head>
 
   <body>
+    <div w3-include-html="./test.html"></div> 
     <div id="app-container">
       <div id="node-action-box">
         <ul>
@@ -56,23 +57,5 @@
         <div id="map">[[ карта ]]</div>
       </div>
     </div>
-
-    <script id="tmpl-default-node-info" type="text/template">
-      Элемент не выбран.
-    </script>
-
-    <script id="tmpl-text-input" type="text/template">
-      <label>
-        <%= name %>
-        <textarea><%= value %></textarea>       
-      </label>
-    </script>
-
-    <script id="tmpl-string-input" type="text/template">
-      <label>
-        <%= name %>
-        <input value="<%= value %>">       
-      </label>
-    </script>
   </body>
 </html>
