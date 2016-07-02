@@ -1,7 +1,7 @@
 "use strict";
 
 $(function() {
-  $("#node-action-box").tabs();  
+  $("#top-panel").tabs();  
 
   $("#zoom-in").on("click", App.graph.zoomIn);
   $("#zoom-out").on("click", App.graph.zoomOut);

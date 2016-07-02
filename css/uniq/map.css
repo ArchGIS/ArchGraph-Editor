@@ -1,0 +1,10 @@
+#map-box {
+    float: left;
+    width: 626px;
+    height: 408px;
+    border: 1px solid gray;
+}
+
+#map {
+    float: left;
+}
