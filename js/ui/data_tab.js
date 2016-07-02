@@ -1,7 +1,8 @@
 "use strict";
 
-$(function() { 
+$(function() {
   var $tab = $("#data-tab");
+  var t = App.locale.translate;
   var $inputs = {};
 
   // #FIXME: должны быть в другом месте
@@ -12,12 +13,13 @@ $(function() {
   
   function loadNode(node) {
     var $elems = []; // Элементы для вставки в html
+    var ctorName = node.constructor.name;
 
     _.each(node.schema, (info, key) => {
       var $input = $(inputTemplates[info.input](node.props[key]));
 
       $inputs[key] = $input;
-      $elems.push($("<label/>").html([info.name, $input]));
+      $elems.push($("<label/>").html([t(`${ctorName}.props.${key}`), $input]));
     });
 
     $tab.html($elems);

@@ -38,12 +38,10 @@
   Research.schema = {
     "description": {
       "input": INP_TEXT,
-      "name": "Описание",
       "default": ""
     },
     "year": {
       "input": INP_STRING,
-      "name": "Год проведения",
       "default": () => new Date().getFullYear()
     }
   };
