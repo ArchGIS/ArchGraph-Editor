@@ -19,18 +19,22 @@
   function Author(id) {
     Base.call(this, id, Author);
   }
-  Author.actions = [
-    "addResearch"
-  ];
+  Author.actions = {
+    "add": [
+      "Research"
+    ]
+  };
 
   function Research(id) {
     Base.call(this, id, Research);
   }
-  Research.actions = [
-    "addArchMap",
-    "addExcavations",
-    "addCoAuthor"
-  ];
+  Research.actions = {
+    "add": [
+      "ArchMap",
+      "Excavations",
+      "CoAuthor"
+    ]
+  };
   Research.schema = {
     "description": {
       "input": INP_TEXT,
@@ -47,47 +51,49 @@
   function Excavations(id) {
     Base.call(this, id, Excavations);
   }
-  Excavations.actions = [
-    "addArtifact",
-    "addMonumentPhoto",
-    "addExcavationsPhoto",
-    "addMonument"
-  ];
+  Excavations.actions = {
+    "add": [
+      "Artifact",
+      "MonumentPhoto",
+      "ExcavationsPhoto",
+      "Monument"
+    ]
+  };
 
   function MonumentPhoto(id) {
     Base.call(this, id, MonumentPhoto);
   }
-  MonumentPhoto.actions = [];
+  MonumentPhoto.actions = {};
 
   function ExcavationsPhoto(id) {
     Base.call(this, id, ExcavationsPhoto);
   }
-  ExcavationsPhoto.actions = [];
+  ExcavationsPhoto.actions = {};
 
   function ArtifactPhoto(id) {
     Base.call(this, id, ArtifactPhoto);
   }
-  ArtifactPhoto.actions = [];
+  ArtifactPhoto.actions = {};
 
   function Monument(id) {
     Base.call(this, id, Monument);
   }
-  Monument.actions = [];
+  Monument.actions = {};
 
   function Artifact(id) {
     Base.call(this, id, Artifact);
   }
-  Artifact.actions = [];
+  Artifact.actions = {};
 
   function CoAuthor(id) {
     Base.call(this, id, CoAuthor);
   }
-  CoAuthor.actions = [];
+  CoAuthor.actions = {};
 
   function ArchMap(id) {
     Base.call(this, id, ArchMap);
   }
-  ArchMap.actions = [];
+  ArchMap.actions = {};
     
   App.node = {
     "Base": Base,

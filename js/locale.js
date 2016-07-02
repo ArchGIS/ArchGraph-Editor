@@ -3,42 +3,43 @@
 (function() {
   var dict = {
     "Author": {
-      "short": "Автор"
+      "short": "Автор",
+      "insert": "Добавить автора"
     },
     "CoAuthor": {
-      "short": "Соавтор"
+      "short": "Соавтор",
+      "insert": "Добавить соавтора"
     },
     "ArchMap": {
-      "short": "Арх. карта"
+      "short": "Арх. карта",
+      "insert": "Добавить археологическую карту"
     },
     "Research": {
-      "short": "Иссл."
+      "short": "Иссл.",
+      "insert": "Добавить исследование"
     },
     "Excavations": {
-      "short": "Раскопки"
+      "short": "Раскопки",
+      "insert": "Добавить раскопки"
     },
     "Monument": {
-      "short": "Памятник"
+      "short": "Памятник",
+      "insert": "Добавить памятник"
     },
     "Artifact": {
-      "short": "Артефакт"
+      "short": "Артефакт",
+      "insert": "Добавить артефакт"
     },
     "MonumentPhoto": {
-      "short": "Фото пам."
+      "short": "Фото пам.",
+      "insert": "Добавить фотографию памятника"
     },
     "ExcavationsPhoto": {
-      "short": "Фото раск."
+      "short": "Фото раск.",
+      "insert": "Добавить фотографию раскопок"
     },
     "button": {
-      "delete": "Удалить элемент",
-      "addResearch": "Добавить исследование",
-      "addExcavations": "Добавить раскопки",
-      "addArchMap": "Добавить археологическую карту",
-      "addMonument": "Добавить памятник",
-      "addArtifact": "Добавить артефакт",
-      "addCoAuthor": "Добавить соавтора",
-      "addMonumentPhoto": "Добавить фотографию памятника",
-      "addExcavationsPhoto": "Добавить фотографию раскопок"
+      "delete": "Удалить элемент"
     },
     "error": {
       "nonLeafRemove": "удалять можно только висячие вершины (листья графа)"
