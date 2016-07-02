@@ -2,10 +2,6 @@
 
 (function() {
   var dict = {
-    "Author": {
-      "short": "Автор",
-      "insert": "Добавить автора"
-    },
     "CoAuthor": {
       "short": "Соавтор",
       "insert": "Добавить соавтора"
@@ -19,7 +15,8 @@
       "insert": "Добавить исследование",
       "props": {
         "year": "Год проведения",
-        "description": "Описание"
+        "description": "Описание",
+        "author": "Автор"
       }
     },
     "Excavations": {
