@@ -38,7 +38,13 @@ $(function() {
 
     var initialLayout = {
       "name": "grid",
-      "padding": 180
+      "padding": (function() {
+          switch (nodes.length) {
+            case 1: return 180;
+            case 2: return 90;
+            default: return 45;
+          }
+        }())
     };
 
     cy = cytoscape({
