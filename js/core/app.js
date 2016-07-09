@@ -11,9 +11,12 @@ $(function() {
 
   App.hotkey.bind(KeyEvent.DOM_VK_DELETE, App.graph.deleteSelected);
 
-  App.graph.init([
-    new Research("research")
-  ]);
+  (function() {
+    var author = new Author("author");
+    var research = new Research("research");
+    App.graph.init([author, research]);
+    App.graph.connectNodes(author, research);
+  }());
   
   App.graph.on("remove", "node", function() {
     App.actionTab.reset();

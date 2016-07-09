@@ -12,6 +12,44 @@ $(function() {
     "y": $cytoscape.height() / 2.0
   };
 
+  /*
+   * Private:
+   */
+
+  /**
+   * @param {string} firstId
+   * @param {string} secondId
+   */
+  function createEdge(firstId, secondId) {
+    return {
+      "group": "edges",
+      "data": {
+        "source": firstId,
+        "target": secondId
+      }
+    };
+  }
+
+  /**
+   * @param {Node} node
+   * @param {number} x
+   * @param {number} y
+   */
+  function createNode(node, x, y) {
+    return {
+      "group": "nodes",
+      "data": node,
+      "position": {
+        "x": x,
+        "y": y
+      }
+    }
+  }
+
+  /*
+   * Public:
+   */
+
   /**
    * Инициализация графа.
    * Исходное состояние задаётся входными аргументами.
@@ -19,6 +57,9 @@ $(function() {
    * @param {Node[]} nodes
    */
   function init(nodes) {
+    // Помечаем каждый node из стартового набора особой меткой.
+    _.each(nodes, (node) => node.startingNode = true);
+
     var elems = {
       "nodes": _.map(nodes, (node) => ({"data": node}))
     };
@@ -101,23 +142,20 @@ $(function() {
     var id = "" + idSequence++;
     var pos = selected.position();
 
-    var node = {
-      "group": "nodes",
-      "data": new NodeCtor(id),
-      "position": {
-        "x": pos.x + 75,
-        "y": pos.y
-      }
-    };
-    var edge = {
-      "group": "edges",
-      "data": {
-        "source": selected.id(),
-        "target": id
-      }
-    };
+    var node = createNode(new NodeCtor(id), pos.x + 75, pos.y);
+    var edge = createEdge(selected.id(), id);
     
     cy.add([node, edge]);
+  }
+
+  /**
+   * Создаёт направленное ребро от вершины `a` к вершине `b`.
+   * 
+   * @param {Node} a
+   * @param {Node} b
+   */
+  function connectNodes(a, b) {
+    cy.add(createEdge(a.id, b.id));
   }
 
   /**
@@ -127,6 +165,11 @@ $(function() {
   function deleteSelected() {
     var selected = cy.$(":selected");
     if (0 == selected.length) { // Не выделено ни одного узла.
+      return;
+    }
+
+    if (selected.data().startingNode) {
+      App.alert.error(t("error.startingNodeRemove"));
       return;
     }
     
@@ -172,6 +215,7 @@ $(function() {
     "zoomOut": zoomOut,
     "deleteSelected": deleteSelected,
     "addToSelected": addToSelected,
-    "connectedNodes": connectedNodes
+    "connectedNodes": connectedNodes,
+    "connectNodes": connectNodes
   };
 });
