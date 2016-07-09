@@ -1,17 +1,29 @@
 "use strict";
 
 $(function() {
-  var Author = App.node.Author;
-  var Research = App.node.Research;
+  /*
+   * Инициализация основного UI. 
+   */
 
   $("#top-panel").tabs();  
 
   $("#zoom-in").on("click", App.graph.zoomIn);
   $("#zoom-out").on("click", App.graph.zoomOut);
 
+  /*
+   * Инициализация горячих клавиш.
+   */
+
   App.hotkey.bind(KeyEvent.DOM_VK_DELETE, App.graph.deleteSelected);
 
+  /*
+   * Инициализация cytoscape и всего остального, связанного с графом.
+   */
+
   (function() {
+    var Author = App.node.Author;
+    var Research = App.node.Research;
+
     var author = new Author("author");
     var research = new Research("research");
     App.graph.init([author, research]);
