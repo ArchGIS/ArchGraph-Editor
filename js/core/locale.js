@@ -2,50 +2,75 @@
 
 (function() {
   var dict = {
+    "form": {
+      "required": "Обязательное для заполнения поле"
+    },
+
+    "Author": {
+      "short": "Автор"
+    },
+
     "CoAuthor": {
       "short": "Соавтор",
       "insert": "Добавить соавтора"
     },
+
     "ArchMap": {
       "short": "Арх. карта",
       "insert": "Добавить археологическую карту"
     },
+
     "Research": {
       "short": "Иссл.",
       "insert": "Добавить исследование",
-      "props": {
+      "prop": {
         "year": "Год проведения",
         "description": "Описание",
         "author": "Автор"
       }
     },
+
     "Excavations": {
       "short": "Раскопки",
       "insert": "Добавить раскопки"
     },
+
     "Monument": {
       "short": "Памятник",
       "insert": "Добавить памятник"
     },
+
     "Artifact": {
       "short": "Артефакт",
       "insert": "Добавить артефакт"
     },
+
     "MonumentPhoto": {
       "short": "Фото пам.",
       "insert": "Добавить фотографию памятника"
     },
+
     "ExcavationsPhoto": {
       "short": "Фото раск.",
       "insert": "Добавить фотографию раскопок"
     },
+
     "button": {
       "delete": "Удалить элемент"
     },
+
     "error": {
-      "nonLeafRemove": "удалять можно только висячие вершины (листья графа)"
+      "nonLeafRemove": "удалять можно только висячие вершины (листья графа)",
+      "startingNodeRemove": "нельзя удалять стартовые вершины"
+    },
+  
+    "toolbox": {
+      "nodeTab": "Работа с выделенным элементом",
+      "graphControlTab": "Настройки графа",
+      "mapControlTab": "Настройки карты"
     }
   };
+
   var dictIndex = {};
 
   function buildIndex(toParse, path) {
@@ -60,9 +85,7 @@
     });
   }
 
-  buildIndex(dict);
-  
-  App.locale.translate = function(key) {
+  function translate(key) {
     var translation = dictIndex[key];
     if (translation) {
       return translation;
@@ -70,4 +93,10 @@
       return `<< ${key} >>`;
     }
   }
+
+  buildIndex(dict);  
+
+  App.locale = {
+    "translate": translate
+  };
 }());
