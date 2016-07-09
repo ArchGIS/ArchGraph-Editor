@@ -17,6 +17,35 @@ $(function() {
    */
 
   /**
+   * @param {string} layoutName
+   * @param {number} nodeCount
+   * @return {Object}
+   */
+  function createLayout(layoutName, nodeCount) {
+    var cyLayoutName = (function() {
+      switch (layoutName) {
+      case "grid": return "grid";
+      case "tree": return "breadthfirst";
+      case "spread": return "cose";
+      default: throw `unknown layout: ${layoutName}`;
+      }
+    }());
+
+    var layoutPadding = (function() {
+      switch (nodeCount) {
+        case 1: return 180;
+        case 2: return 90;
+        default: return 45;
+      }
+    }());
+
+    return {
+      "name": cyLayoutName,
+      "padding": layoutPadding
+    };
+  }
+
+  /**
    * @param {string} firstId
    * @param {string} secondId
    */
@@ -76,25 +105,13 @@ $(function() {
         "target-arrow-shape": "triangle",
         "curve-style": "bezier"
       })
-      .selector(":unselectable").css({
+      .selector(".existing").css({
         "shape": "rectangle"
       });
-
-    var initialLayout = {
-      "name": "grid",
-      "padding": (function() {
-          switch (nodes.length) {
-            case 1: return 180;
-            case 2: return 90;
-            default: return 45;
-          }
-        }())
-    };
 
     cy = cytoscape({
       "userZoomingEnabled": false,
       "boxSelectionEnabled": false,
-      "layout": initialLayout,
       "elements": elems,
       "container": $cytoscape[0],
       "style": style
@@ -241,6 +258,34 @@ $(function() {
     }
   }
 
+  /**
+   * Помечает вершину как существующую в базе данных.
+   * 
+   * @param {Node} node
+   */
+  function markAsExisting(node) {
+    cy.$("#" + node.id).addClass("existing");
+  }
+
+  /**
+   * Помечает вершину как новую запись, которая будет вставлена в базу данных.
+   * 
+   * @param {Node} node
+   */
+  function markAsNew(node) {
+    cy.$("#" + node.id).removeClass("existing");
+  }
+
+  /**
+   * Применяет выравнивание к графу.
+   * Валидные опции: "grid", "tree", "spread".
+   * 
+   * @param {string} layoutName
+   */
+  function setLayout(layoutName) {
+    cy.layout(createLayout(layoutName, cy.nodes().length));
+  }
+
   App.graph = {
     "init": init,
     "on": bindEvent,
@@ -251,6 +296,9 @@ $(function() {
     "connectedNodes": connectedNodes,
     "connectNodes": connectNodes,
     "disable": disable,
-    "enable": enable
+    "enable": enable,
+    "markAsExisting": markAsExisting,
+    "markAsNew": markAsNew,
+    "setLayout": setLayout
   };
 });
