@@ -1,12 +1,19 @@
 "use strict";
 
 $(function() {
+  var Author = App.node.Author;
+  var Research = App.node.Research;
+
   $("#top-panel").tabs();  
 
   $("#zoom-in").on("click", App.graph.zoomIn);
   $("#zoom-out").on("click", App.graph.zoomOut);
 
   App.hotkey.bind(KeyEvent.DOM_VK_DELETE, App.graph.deleteSelected);
+
+  App.graph.init([
+    new Research("research")
+  ]);
   
   App.graph.on("remove", "node", function() {
     App.actionTab.reset();

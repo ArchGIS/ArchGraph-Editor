@@ -1,22 +1,28 @@
 "use strict";
 
 $(function() {
-  var Author = App.node.Author;
-  var Research = App.node.Research;
-  var Excavations = App.node.Excavations;
-  var Artifact = App.node.Artifact;
   var t = App.locale.translate;
+  var cy = null;
 
   var idSequence = 0;
   
   var $cytoscape = $("#cytoscape");
-
   var relativeCenter = {
     "x": $cytoscape.width() / 2.0,
     "y": $cytoscape.height() / 2.0
   };
 
-  var cy = (function() {
+  /**
+   * Инициализация графа.
+   * Исходное состояние задаётся входными аргументами.
+   * 
+   * @param {Node[]} nodes
+   */
+  function init(nodes) {
+    var elems = {
+      "nodes": _.map(nodes, (node) => ({"data": node}))
+    };
+
     var style = cytoscape.stylesheet()
       .selector("node").css({
         "content": "data(label)",
@@ -30,17 +36,12 @@ $(function() {
         "curve-style": "bezier"
       });
 
-    // #FIXME: стартовый набор должен задаваться извне
-    var elems = {
-      "nodes": [{"data": new Research("research")}]
-    };
-
     var initialLayout = {
       "name": "grid",
       "padding": 180
     };
 
-    return cytoscape({
+    cy = cytoscape({
       "userZoomingEnabled": false,
       "boxSelectionEnabled": false,
       "layout": initialLayout,
@@ -48,7 +49,7 @@ $(function() {
       "container": $cytoscape[0],
       "style": style
     });
-  }());
+  }
 
   /**
    * Увеличить текущий масштаб графа.
@@ -159,6 +160,7 @@ $(function() {
   }
 
   App.graph = {
+    "init": init,
     "on": bindEvent,
     "zoomIn": zoomIn,
     "zoomOut": zoomOut,
