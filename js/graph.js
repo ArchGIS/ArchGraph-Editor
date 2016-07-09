@@ -50,6 +50,9 @@ $(function() {
     });
   }());
 
+  /**
+   * Увеличить текущий масштаб графа.
+   */
   function zoomIn() {
     var zoom = cy.zoom();
     if (zoom < 3.0) {
@@ -57,6 +60,9 @@ $(function() {
     }
   }
 
+  /**
+   * Уменьшить текущий масштаб графа.
+   */
   function zoomOut() {
     var zoom = cy.zoom();
     if (zoom > 0.25) {
@@ -64,10 +70,25 @@ $(function() {
     }
   }
 
+  /**
+   * Подписывает функцию `callback` на событие `trigger`.
+   * Домен события ограничивается аргументом `target`.
+   * Например, можно отслеживать события только вершин (node).
+   * 
+   * @param {string} trigger
+   * @param {string} target
+   * @param {function} callback
+   */
   function bindEvent(trigger, target, callback) {
     cy.on(trigger, target, callback);
   }
 
+  /**
+   * Создать вершину, соединённую с текуще выбранной вершиной.
+   * Принимает конструирующую функцию в качестве аргумента.
+   * 
+   * @param {function} NodeCtor
+   */
   function addToSelected(NodeCtor) {
     var selected = cy.$(":selected");
     var id = "" + idSequence++;
@@ -92,6 +113,10 @@ $(function() {
     cy.add([node, edge]);
   }
 
+  /**
+   * Удалить выделенный узел.
+   * #FIXME: должен удалять все исходящие узлы.
+   */
   function deleteSelected() {
     var selected = cy.$(":selected");
     if (0 == selected.length) { // Не выделено ни одного узла.
@@ -107,11 +132,38 @@ $(function() {
     }
   }
 
+  /**
+   * Возвращает массив вершин графа, которые соединены с `node` вершиной.
+   * При передаче дополнительного аргумента `NodeCtor`, фильтрует результат
+   * так, чтобы в него входили вершины указанного типа.
+   * 
+   * @param {Node} node
+   * @param {function} NodeCtor
+   * @return {Node[]}
+   */
+  function connectedNodes(node, NodeCtor) {
+    var vertex = cy.$("#" + node.id); 
+    var connectedVertices = vertex.neighborhood("node"); 
+    
+    if (NodeCtor) {
+      var result = [];
+      _.each(connectedVertices, (vertex) => {
+        if (vertex.data().constructor == NodeCtor) {
+          result.push(vertex.data());
+        }
+      });
+      return result;
+    } else {
+      return _.invoke(connectedVertices, "data");
+    }
+  }
+
   App.graph = {
     "on": bindEvent,
     "zoomIn": zoomIn,
     "zoomOut": zoomOut,
     "deleteSelected": deleteSelected,
-    "addToSelected": addToSelected
+    "addToSelected": addToSelected,
+    "connectedNodes": connectedNodes
   };
 });
