@@ -75,6 +75,9 @@ $(function() {
         "width": 2,
         "target-arrow-shape": "triangle",
         "curve-style": "bezier"
+      })
+      .selector(":unselectable").css({
+        "shape": "rectangle"
       });
 
     var initialLayout = {
@@ -208,6 +211,36 @@ $(function() {
     }
   }
 
+  /**
+   * Запрещает выделение переданных вершин.
+   * 
+   * @param {Node|Node[]} nodes
+   */
+  function disable(nodes) {
+    if (_.isArray(nodes)) {
+      _.each(nodes, (node) => {
+        cy.$("#" + node.id).unselectify();
+      });
+    } else {
+      cy.$("#" + nodes.id).unselectify();
+    }
+  }
+
+  /**
+   * Делает переданные вершины выделяемыми.
+   * 
+   * @param {Node|Node[]} nodes
+   */
+  function enable(nodes) {
+    if (_.isArray(nodes)) {
+      _.each(nodes, (node) => {
+        cy.$("#" + node.id).selectify();
+      });
+    } else {
+      cy.$("#" + nodes.id).selectify();
+    }
+  }
+
   App.graph = {
     "init": init,
     "on": bindEvent,
@@ -216,6 +249,8 @@ $(function() {
     "deleteSelected": deleteSelected,
     "addToSelected": addToSelected,
     "connectedNodes": connectedNodes,
-    "connectNodes": connectNodes
+    "connectNodes": connectNodes,
+    "disable": disable,
+    "enable": enable
   };
 });
