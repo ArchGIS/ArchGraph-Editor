@@ -3,5 +3,5 @@
 var App = {
   "node": {},
   "input": {},
-  "locale": {}
+  "ui": {}
 };
