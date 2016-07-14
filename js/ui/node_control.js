@@ -3,6 +3,9 @@
 $(function() {
   var t = App.locale.translate;
 
+  var $menu = $("#selected-node-menu");
+  var $emptyMenu = $("#empty-node-menu");
+
   var $addNode = $("#add-node");
   var $availableNodes = $("#available-nodes");
 
@@ -68,9 +71,12 @@ $(function() {
     currentNode = node;
     var actions = node.actions;
 
+    $menu.show();
+    $emptyMenu.hide();
+
     // "Присоединить элемент"
     if (actions.add) {
-      $availableNodes.show();
+      $addNode.show();
 
       var parts = [];
       _.each(actions.add, (ctorName) => {
@@ -85,7 +91,7 @@ $(function() {
       });
       $availableNodes.html(parts);
     } else {
-      $availableNodes.hide();
+      $addNode.hide();
     }
 
     // "Свойства элемента"
@@ -109,8 +115,14 @@ $(function() {
     });
   }
 
-  App.ui.nodeTab = {
+  function reset() {
+    $menu.hide();
+    $emptyMenu.show();
+  }
+
+  App.ui.nodeControl = {
     "loadNode": loadNode,
-    "updateNode": updateNode
+    "updateNode": updateNode,
+    "reset": reset
   };
 });
