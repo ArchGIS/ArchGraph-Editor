@@ -9,10 +9,12 @@ $(function() {
   var tabNames = [];
 
   /**
-   * @param {string[]} enabledTabs
+   * @param {Object} cfg
+   * @param {string[]} cfg.enabledTabs
+   * @param {string[]} cfg.enabledGraphLayouts
    */
-  function init(enabledTabs) {
-    tabNames = enabledTabs;
+  function init(cfg) {
+    tabNames = cfg.enabledTabs;
 
     var options = [];
 
@@ -35,6 +37,8 @@ $(function() {
     $selector.on("change", function() {
       setTab(+$selector.find(":selected").val());
     });
+
+    App.graphControl.init(cfg.enabledGraphLayouts);
   }
 
   /**
@@ -55,8 +59,25 @@ $(function() {
     }
   }
 
+  /**
+   * @param {Node} node
+   */
+  function selectNode(node) {
+    App.ui.nodeTab.loadNode(node);
+  }
+
+  /**
+   * @param {Node} node
+   */
+  function unselectNode(node) {
+    App.ui.nodeTab.updateNode(node);
+    App.ui.nodeTab.reset();
+  }
+
   App.toolbox = {
     "setTab": setTab,
-    "init": init
+    "init": init,
+    "selectNode": selectNode,
+    "unselectNode": unselectNode
   };
 });
