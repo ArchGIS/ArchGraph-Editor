@@ -1,7 +1,7 @@
 "use strict";
 
 $(function() {
-  var tabsEnabled = [
+  var enabledTabs = [
     "graphControlTab",
     "mapControlTab",
     "nodeTab",
@@ -13,7 +13,14 @@ $(function() {
 
   $("#data-tab").tabs();
   
-  App.toolbox.init(tabsEnabled);
+  App.toolbox.init({
+    "enabledTabs": enabledTabs,
+    "enabledGraphLayouts": [
+      "grid",
+      "tree",
+      "spread",
+    ]
+  });
 
   /*
    * Инициализация горячих клавиш.
@@ -21,7 +28,7 @@ $(function() {
 
   App.hotkey.bind(KeyEvent.DOM_VK_DELETE, App.graph.deleteSelected);
 
-  for (var i in tabsEnabled) {
+  for (var i in enabledTabs) {
     App.hotkey.bindCtrl(
       KeyEvent[`DOM_VK_${+i + 1}`],
       (event) => App.toolbox.setTab(event.which - i.charCodeAt(0) + 1)
