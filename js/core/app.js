@@ -1,14 +1,19 @@
 "use strict";
 
 $(function() {
+  var tabsEnabled = [
+    "graphControlTab",
+    "mapControlTab",
+    "nodeTab",
+  ];
+
   /*
    * Инициализация основного UI. 
    */
 
-  $("#top-panel").tabs();  
-
-  $("#zoom-in").on("click", App.graph.zoomIn);
-  $("#zoom-out").on("click", App.graph.zoomOut);
+  $("#data-tab").tabs();
+  
+  App.toolbox.init(tabsEnabled);
 
   /*
    * Инициализация горячих клавиш.
@@ -16,38 +21,37 @@ $(function() {
 
   App.hotkey.bind(KeyEvent.DOM_VK_DELETE, App.graph.deleteSelected);
 
+  for (var i in tabsEnabled) {
+    App.hotkey.bindCtrl(
+      KeyEvent[`DOM_VK_${+i + 1}`],
+      (event) => App.toolbox.setTab(event.which - i.charCodeAt(0) + 1)
+    );
+  }
+
   /*
    * Инициализация cytoscape и всего остального, связанного с графом.
    */
 
   (function() {
-    var Author = App.node.Author;
-    var Research = App.node.Research;
+    var author = new App.node.Author("author");
+    var research = new App.node.Research("research");
 
-    var author = new Author("author");
-    var research = new Research("research");
     App.graph.init([author, research]);
     App.graph.connectNodes(author, research);
+
+    App.graph.setLayout("tree");
   }());
   
   App.graph.on("remove", "node", function() {
     App.actionTab.reset();
     App.dataTab.reset();
   });
-  
-  App.graph.on("unselect", "node", function(event) {
-    var selected = event.cyTarget.data();
-    App.dataTab.updateNode(selected);
-    console.log(selected.props);
 
-    App.actionTab.reset();
-    App.dataTab.reset();
+  App.graph.on("unselect", "node", function(event) {
+    App.toolbox.unselectNode(event.cyTarget.data());
   });
 
   App.graph.on("select", "node", function(event) {
-    var selected = event.cyTarget.data();
-    
-    App.actionTab.loadNode(selected);
-    App.dataTab.loadNode(selected);
+    App.toolbox.selectNode(event.cyTarget.data());
   });
 });
