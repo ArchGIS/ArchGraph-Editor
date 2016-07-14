@@ -50,7 +50,6 @@ $(function() {
   }());
   
   App.graph.on("remove", "node", function() {
-    App.actionTab.reset();
     App.dataTab.reset();
   });
 
