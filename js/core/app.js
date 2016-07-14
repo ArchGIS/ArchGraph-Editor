@@ -2,9 +2,9 @@
 
 $(function() {
   var enabledTabs = [
-    "graphControlTab",
-    "mapControlTab",
-    "nodeTab",
+    "graphControl",
+    "mapControl",
+    "nodeControl",
   ];
 
   /*

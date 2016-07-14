@@ -4,65 +4,116 @@
   <head>
     <title>ArchGraph Editor</title>
 
-    <script src="./vendor/js/cytoscape.min.js"></script>
-    <script src="./vendor/js/jquery.min.js"></script>
-    <script src="./vendor/js/jquery.ui.min.js"></script>
-    <script src="./vendor/js/underscore.min.js"></script>
-
-    <script src="./js/core/init.js"></script>
-    <script src="./js/core/hotkey.js"></script>
-    <script src="./js/core/locale.js"></script>
-    <script src="./js/alert.js"></script>
-    <script src="./js/make.js"></script>
-    <script src="./js/inputs.js"></script>
-    <script src="./js/nodes.js"></script>
-    <script src="./js/graph.js"></script>
-    <script src="./js/ui/action_tab.js"></script>
-    <script src="./js/ui/data_tab.js"></script>
-
-    <script src="./js/core/app.js"></script>
-
     <link href="./vendor/css/pure.min.css" rel="stylesheet">
     <link href="./vendor/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="./vendor/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="./css/base.css" rel="stylesheet">
+    <link href="./css/uniq/tab-selector.css" rel="stylesheet">
     <link href="./css/uniq/action-tab.css" rel="stylesheet">
     <link href="./css/uniq/cytoscape.css" rel="stylesheet">
     <link href="./css/uniq/map.css" rel="stylesheet">
     <link href="./css/uniq/top-panel.css" rel="stylesheet">
     <link href="./css/namespaced/button.css" rel="stylesheet">
     <link href="./css/namespaced/node-input.css" rel="stylesheet">
+    <link href="./css/namespaced/status.css" rel="stylesheet">
 
     <meta charset="utf-8">
   </head>
 
   <body>
-    <div w3-include-html="./test.html"></div> 
     <div id="app-container">
-      <div id="top-panel">
-        <ul>
-          <li><a href="#control-tab">Управление</a></li>
-          <li><a href="#action-tab">Действия над элементом</a></li>
-          <li><a href="#data-tab">Данные элемента</a></li>
-        </ul>
 
-        <div id="control-tab">
-          Масштаб:
-          <button id="zoom-in" class="pure-button button-small">+</button>
-          <button id="zoom-out" class="pure-button button-small">-</button>
-          <hr>
-          <button class="pure-button pure-button-primary">Сохранить</button>
+      <div id="top-panel">
+        <select id="tab-selector">  
+        </select>
+
+        <div id="graphControl" style="display: none">
+          <div class="control-group">
+            Масштаб:
+            <button id="zoom-in" class="pure-button button-small">+</button>
+            <button id="zoom-out" class="pure-button button-small">-</button>
+          </div>
+
+          <div class="control-group">
+            Выравнивание элементов:
+            <select id="graph-layout-selector">
+              <!-- 
+              <option value="grid">Сеточное выравнивание</option>
+              <option value="tree">Древовидное выравнивание</option>
+              <option value="spread">Свободное выравнивание</option>
+              -->
+            </select>
+
+            <button id="apply-graph-layout" class="pure-button">Применить</button> 
+          </div>
+
         </div>
 
-        <div id="action-tab"></div>
-        <div id="data-tab"></div>
-        
+        <div id="mapControl" style="display: none">
+        </div>
+
+        <div id="nodeControl" style="display: none">
+          <div id="selected-node-menu" style="display: none">
+            <div id="add-node" class="control-group">
+              Присоединить элемент:
+              <div id="available-nodes" class="pure-g"></div>
+            </div>
+
+            <div class="control-group">
+              <select id="node-type-select" style="width: 100%">
+                <option value="new">Свойства для создания записи</option>              
+                <option value="existing">Свойства для поиска существующей записи</option>
+              </select> 
+
+              <div id="node-props"></div>
+            </div>
+
+            <button id="remove-node" class="pure-button button-error">Удалить элемент</button>          
+          </div>
+
+          <p id="empty-node-menu">
+            Нет выделенного элемента.
+          </p>
+
+        </div>
       </div>
-      
+
       <div id="cytoscape"></div>
+
       <div id="map-box">
         <div id="map">[[ карта ]]</div>
       </div>
+      
     </div>
+
+    <!-- scripts -->
+
+    <script src="./vendor/js/cytoscape.min.js"></script>
+    <script src="./vendor/js/jquery.min.js"></script>
+    <script src="./vendor/js/jquery.ui.min.js"></script>
+    <script src="./vendor/js/underscore.min.js"></script>
+
+    <script src="./js/core/init.js"></script>
+    <script src="./js/core/state.js"></script>
+    <script src="./js/core/hotkey.js"></script>
+    <script src="./js/core/locale.js"></script>
+    <script src="./js/hquery/api.js"></script>
+    <script src="./js/alert.js"></script>
+    <script src="./js/make.js"></script>
+    <script src="./js/inputs.js"></script>
+    <script src="./js/node/base.js"></script>
+    <script src="./js/node/author.js"></script>
+    <script src="./js/node/coauthor.js"></script>
+    <script src="./js/node/monument.js"></script>
+    <script src="./js/node/research.js"></script>
+    <script src="./js/node/excavations.js"></script>
+    <script src="./js/graph.js"></script>
+    <script src="./js/ui/toolbox.js"></script>
+    <script src="./js/ui/data_tab.js"></script>
+    <script src="./js/ui/graph_control.js"></script>
+    <script src="./js/ui/node_control.js"></script>
+
+    <script src="./js/core/app.js"></script>
   </body>
 </html>

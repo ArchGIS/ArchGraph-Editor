@@ -20,7 +20,7 @@ $(function() {
 
     _.each(tabNames, (tabName, tabIndex) => {
       var n = tabIndex + 1;
-      var text = t(`toolbox.${tabName}`);
+      var text = t(`${tabName}.tabName`);
 
       options.push(`<option value="${tabIndex}">[${n}] ${text}</option>`);
     });
@@ -63,15 +63,15 @@ $(function() {
    * @param {Node} node
    */
   function selectNode(node) {
-    App.ui.nodeTab.loadNode(node);
+    App.ui.nodeControl.loadNode(node);
   }
 
   /**
    * @param {Node} node
    */
   function unselectNode(node) {
-    App.ui.nodeTab.updateNode(node);
-    App.ui.nodeTab.reset();
+    App.ui.nodeControl.updateNode(node);
+    App.ui.nodeControl.reset();
   }
 
   App.toolbox = {
