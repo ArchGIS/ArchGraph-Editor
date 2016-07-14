@@ -289,6 +289,16 @@ $(function() {
     cy.layout(createLayout(layoutName, cy.nodes().length));
   }
 
+  /**
+   * Отменяет последнее удаление.
+   * 
+   * @param {Array} removedNodes
+   */
+  function undoDelete(removedNodes) {
+    removedNodes.restore();
+  }
+
+
   App.graph = {
     "init": init,
     "on": bindEvent,
