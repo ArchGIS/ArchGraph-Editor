@@ -184,6 +184,7 @@ $(function() {
    */
   function deleteSelected() {
     var selected = cy.$(":selected");
+    var allToRemoveNodes = [];
     if (0 == selected.length) { // Не выделено ни одного узла.
       return;
     }
@@ -195,7 +196,9 @@ $(function() {
     
     if (selected.neighborhood("node").length < 2) {
       if (App.alert.confirm("Вы уверены, что хотите удалить этот элемент?")) {
+        allToRemoveNodes = selected.successors().remove();
         selected.remove();
+        return [selected, allToRemoveNodes];
       }
     } else {
       App.alert.error(t("error.nonLeafRemove"));
