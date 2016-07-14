@@ -7,7 +7,10 @@
     },
 
     "Author": {
-      "short": "Автор"
+      "short": "Автор",
+      "props": {
+        "name": "Имя"
+      }
     },
 
     "CoAuthor": {
@@ -23,10 +26,9 @@
     "Research": {
       "short": "Иссл.",
       "insert": "Добавить исследование",
-      "prop": {
+      "props": {
         "year": "Год проведения",
-        "description": "Описание",
-        "author": "Автор"
+        "description": "Описание"
       }
     },
 
